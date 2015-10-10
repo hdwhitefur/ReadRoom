@@ -23,15 +23,6 @@
             android:label="@string/title_activity_query" >
         </activity>
         <activity
-            android:name=".DisplayResults"
-            android:label="@string/title_activity_display_results"
-            android:parentActivityName=".MenuActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="edu.unc.cs.hdwhite.readroom.MenuActivity" />
-        </activity>
-        <activity
             android:name=".ToRead"
             android:label="@string/title_activity_to_read"
             android:parentActivityName=".MenuActivity"
@@ -48,6 +39,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.unc.cs.hdwhite.readroom.MenuActivity" />
+        </activity>
+        <activity
+            android:name=".CollectionActivity"
+            android:label="@string/title_activity_collection" >
+        </activity>
+        <activity
+            android:name=".WishlistActivity"
+            android:label="@string/title_activity_wishlist" >
         </activity>
     </application>
 

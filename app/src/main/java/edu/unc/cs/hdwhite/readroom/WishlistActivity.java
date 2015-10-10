@@ -1,24 +1,22 @@
 package edu.unc.cs.hdwhite.readroom;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-public class MenuActivity extends AppCompatActivity {
-    public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
+public class WishlistActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.activity_wishlist);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_menu, menu);
+        getMenuInflater().inflate(R.menu.menu_wishlist, menu);
         return true;
     }
 
@@ -35,18 +33,5 @@ public class MenuActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-    public void sendQuery(View v)
-    {
-        Intent intent = new Intent(this, QueryActivity.class);
-        startActivity(intent);
-    }
-    public void sendCollection(View v) {
-        Intent intent = new Intent(this, CollectionActivity.class);
-        startActivity(intent);
-    }
-    public void sendWishlist(View v) {
-        Intent intent = new Intent(this, WishlistActivity.class);
-        startActivity(intent);
     }
 }
