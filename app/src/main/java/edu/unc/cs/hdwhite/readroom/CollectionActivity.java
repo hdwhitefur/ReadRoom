@@ -14,14 +14,14 @@ import java.util.ArrayList;
 public class CollectionActivity extends AppCompatActivity {
     ArrayAdapter strAdapter;
     String[] items= {"Moby Dick", "The Marvalous Adventures of Matthew", "Alien The Book, The Movie, The Book", "To Kill a Mockingbird"};;
-    ListView resultList;
+    ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection);
         ArrayAdapter strAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, items);
-        ListView resultList = (ListView) findViewById(R.id.resultList);
-        resultList.setAdapter(strAdapter);
+        listView = (ListView) findViewById(R.id.listView);
+        listView.setAdapter(strAdapter);
     }
 
     @Override
