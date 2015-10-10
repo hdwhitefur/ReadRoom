@@ -16,8 +16,8 @@ public class DisplayResults extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_display_results);
         //setContentView(R.layout.activity_display_results);
-        /*Intent intent = getIntent();
-        String message = intent.getStringExtra(MenuActivity.EXTRA_MESSAGE);
+        //Intent intent = getIntent();
+        /*String message = intent.getStringExtra(MenuActivity.EXTRA_MESSAGE);
         TextView textView = new TextView(this);
         textView.setTextSize(40);
         textView.setText(message);
@@ -33,7 +33,7 @@ public class DisplayResults extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 }

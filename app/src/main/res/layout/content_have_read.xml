@@ -9,10 +9,21 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_have_read" tools:context="edu.unc.cs.hdwhite.readroom.HaveRead">
 
-    <ExpandableListView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/expandableListView3"
+        android:text="Remove"
+        android:id="@+id/button2"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
+        android:layout_above="@+id/button2"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true" />
+        android:choiceMode="multipleChoice"
+        tools:listitem="@android:layout/simple_list_item_multiple_choice" />
+
 </RelativeLayout>

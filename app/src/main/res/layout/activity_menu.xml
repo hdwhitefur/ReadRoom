@@ -14,7 +14,8 @@
         android:layout_alignLeft="@+id/ToRead"
         android:layout_alignStart="@+id/ToRead"
         android:layout_alignRight="@+id/ToRead"
-        android:layout_alignEnd="@+id/ToRead" />
+        android:layout_alignEnd="@+id/ToRead"
+        android:onClick="sendCollection"/>
 
     <Button
         android:layout_width="232dp"
@@ -25,7 +26,8 @@
         android:layout_column="9"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="95dp" />
+        android:layout_marginTop="95dp"
+        android:onClick="sendWishlist"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -38,7 +40,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:onClick="sendMessage"/>
+        android:onClick="sendSearch"/>
 
     <EditText
         android:layout_width="wrap_content"

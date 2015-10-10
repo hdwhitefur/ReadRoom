@@ -37,12 +37,23 @@ public class MenuActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void sendMesssage(View v)
+    public void sendSearch(View v)
     {
         Intent intent = new Intent(this, DisplayResults.class);
-        EditText editText = (EditText) findViewById(R.id.editText);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
+        //EditText editText = (EditText) findViewById(R.id.editText);
+        //String message = editText.getText().toString();
+        //intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
+    public void sendCollection(View v)
+    {
+        Intent intent = new Intent(this, HaveRead.class);
+        startActivity(intent);
+
+    }
+    public void sendWishlist(View v)
+    {
+        Intent intent = new Intent(this, ToRead.class);
         startActivity(intent);
     }
 }
