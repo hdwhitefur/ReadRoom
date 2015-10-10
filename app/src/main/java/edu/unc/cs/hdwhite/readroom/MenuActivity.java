@@ -39,7 +39,7 @@ public class MenuActivity extends AppCompatActivity {
     }
     public void sendSearch(View v)
     {
-        Intent intent = new Intent(this, Results.class);
+        Intent intent = new Intent(this, LoadingScreen.class);
         //EditText editText = (EditText) findViewById(R.id.editText);
         //String message = editText.getText().toString();
         //intent.putExtra(EXTRA_MESSAGE, message);
