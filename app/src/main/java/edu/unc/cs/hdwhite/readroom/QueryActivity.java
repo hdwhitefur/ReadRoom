@@ -76,12 +76,11 @@ public class QueryActivity extends AppCompatActivity {
 
     public void sendWishlist(View v) {
         ArrayList<Book> checkedBooks = getChecked();
-        for (Book b : checkedBooks) {
-            Log.d(DT, b.toString());
-        }
+
     }
 
     public void sendCollection(View v) {
+        ArrayList<Book> checkedBooks = getChecked();
 
     }
 
