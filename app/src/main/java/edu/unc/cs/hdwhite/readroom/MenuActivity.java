@@ -10,6 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -51,6 +55,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void searchBook(View v) {
+        Log.d(DT, "Beginning search");
         EditText queryText = ((EditText) findViewById(R.id.queryText));
         String query = queryText.getText().toString().replaceAll(" ", "+");
         Log.d(DT, "Searching for " + query);
@@ -91,15 +96,31 @@ public class MenuActivity extends AppCompatActivity {
         }
 
         private ArrayList<Book> processInputStream(InputStream in) throws IOException {
+            String output = "";
             Reader reader = new InputStreamReader(in, "UTF-8");
-            String testChar = "" + (char) reader.read();
-            for(int i = 0; i < 50000; i++){
-                char current = (char) reader.read();
-                if (current != 0) {
-                    System.out.print(current);
-                } else{
-                    i = 50000;
-                }
+            char currChar = (char) reader.read();
+            int i = 0;
+            while (currChar != 65535) {
+                output = output + currChar;
+                currChar = (char) reader.read();
+                i++;
+            }
+            Log.d(DT, "Output created");
+            try {
+               return processJSONFromString(output);
+            } catch (Exception e) {
+                Log.d(DT, "Caught exception");
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        private ArrayList<Book> processJSONFromString(String rawJSON) throws JSONException {
+            JSONObject bookResults = new JSONObject(rawJSON);
+            JSONArray books = bookResults.getJSONArray("items");
+            for(int i = 0; i < books.length(); i++) {
+                //Log.d(DT, books.getJSONObject(i).getString("title"));
+                Log.d(DT, books.getJSONObject(i).toString());
             }
             return null;
         }
