@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,9 +35,10 @@ public class QueryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_query);
-        bookAdapter = new ArrayAdapter<Book>(this, android.R.layout.simple_list_item_1, queriedBooks);
+        bookAdapter = new ArrayAdapter<Book>(this, android.R.layout.simple_list_item_multiple_choice, queriedBooks);
         resultList = (ListView) findViewById(R.id.resultList);
         resultList.setAdapter(bookAdapter);
+        resultList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
     }
 
     @Override
@@ -70,7 +72,28 @@ public class QueryActivity extends AppCompatActivity {
                 + query + "&key=" + API_KEY;
         Log.d(DT, "Request " + request);
         new downloadBookInfo().execute(request);
+    }
 
+    public void sendWishlist(View v) {
+        ArrayList<Book> checkedBooks = getChecked();
+        for (Book b : checkedBooks) {
+            Log.d(DT, b.toString());
+        }
+    }
+
+    public void sendCollection(View v) {
+
+    }
+
+    public ArrayList<Book> getChecked() {
+        ArrayList<Book> checkedBooks = new ArrayList<Book>();
+        SparseBooleanArray checked = resultList.getCheckedItemPositions();
+        for (int i = 0; i < resultList.getAdapter().getCount(); i++) {
+            if (checked.get(i)) {
+                checkedBooks.add(queriedBooks.get(i));
+            }
+        }
+        return checkedBooks;
     }
 
     private class downloadBookInfo extends AsyncTask<String, Void, ArrayList<Book>> {
