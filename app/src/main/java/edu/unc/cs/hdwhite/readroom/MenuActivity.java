@@ -1,4 +1,5 @@
 package edu.unc.cs.hdwhite.readroom;
+//Hugh White 2015
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
