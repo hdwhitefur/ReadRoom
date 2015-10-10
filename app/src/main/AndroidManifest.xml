@@ -23,8 +23,8 @@
             android:label="@string/title_activity_query" >
         </activity>
         <activity
-            android:name=".Collection"
-            android:label="@string/title_activity_collection"
+            android:name=".ToRead"
+            android:label="@string/title_activity_to_read"
             android:parentActivityName=".MenuActivity"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
@@ -32,13 +32,21 @@
                 android:value="edu.unc.cs.hdwhite.readroom.MenuActivity" />
         </activity>
         <activity
-            android:name=".Wishlist"
-            android:label="@string/title_activity_wishlist"
+            android:name=".HaveRead"
+            android:label="@string/title_activity_have_read"
             android:parentActivityName=".MenuActivity"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.unc.cs.hdwhite.readroom.MenuActivity" />
+        </activity>
+        <activity
+            android:name=".CollectionActivity"
+            android:label="@string/title_activity_collection" >
+        </activity>
+        <activity
+            android:name=".WishlistActivity"
+            android:label="@string/title_activity_wishlist" >
         </activity>
     </application>
 
