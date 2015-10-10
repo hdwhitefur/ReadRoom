@@ -1,27 +1,26 @@
 package edu.unc.cs.hdwhite.readroom;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.AdapterView;
 
 import java.util.ArrayList;
 
 public class CollectionActivity extends AppCompatActivity {
-    ArrayAdapter strAdapter;
-    String[] items= {"Moby Dick", "The Marvalous Adventures of Matthew", "Alien The Book, The Movie, The Book", "To Kill a Mockingbird"};;
+    ArrayList<Book> books = new ArrayList<Book>();
+    ArrayAdapter<Book> bookAdapter;
     ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection);
-        ArrayAdapter strAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, items);
+        bookAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, books);
         listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(strAdapter);
+        listView.setAdapter(bookAdapter);
     }
 
     @Override
@@ -46,6 +45,11 @@ public class CollectionActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void addBooks(ArrayList<Book> newBooks) {
+        for (Book b : newBooks) {
+            books.add(b);
+        }
+    }
 
 
 }
