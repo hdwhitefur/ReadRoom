@@ -16,12 +16,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
 public class QueryActivity extends AppCompatActivity {
@@ -95,40 +94,15 @@ public class QueryActivity extends AppCompatActivity {
             }
         }
 
-        private ArrayList<Book> connectDownload(URL url) throws IOException {
-            InputStream in = null;
-            try {
-                Log.d(DT, "Starting connection");
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(10000);
-                conn.setConnectTimeout(15000);
-                conn.setRequestMethod("GET");
-                conn.connect();
-                int response = conn.getResponseCode();
-                Log.d(DT, "Connected with response " + response);
-                in = conn.getInputStream();
-                return processInputStream(in);
-            } finally {
-                in.close();
-            }
-        }
-
-        private ArrayList<Book> processInputStream(InputStream in) throws IOException {
+        private ArrayList<Book> connectDownload(URL url) throws IOException, JSONException {
+            Log.d(DT, "Starting connection");
+            URLConnection conn = url.openConnection();
+            BufferedReader in2 = new BufferedReader(
+                    new InputStreamReader(conn.getInputStream()));
+            String input;
             String output = "";
-            Reader reader = new InputStreamReader(in, "UTF-8");
-            char currChar = (char) reader.read();
-            while (currChar != 65535) {
-                output = output + currChar;
-                currChar = (char) reader.read();
-            }
-            Log.d(DT, "Output created");
-            try {
-                return processJSONFromString(output);
-            } catch (Exception e) {
-                Log.d(DT, "Caught exception");
-                e.printStackTrace();
-            }
-            return null;
+            while ((input = in2.readLine()) != null) output = output + input;
+            return processJSONFromString(output);
         }
 
         private ArrayList<Book> processJSONFromString(String rawJSON) throws JSONException {
