@@ -1,12 +1,11 @@
 package edu.unc.cs.hdwhite.readroom;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 
 public class MenuActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
@@ -37,9 +36,9 @@ public class MenuActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void sendSearch(View v)
+    public void sendQuery(View v)
     {
-        Intent intent = new Intent(this, Results.class);
+        Intent intent = new Intent(this, QueryActivity.class);
         startActivity(intent);
     }
     public void sendCollection(View v)
