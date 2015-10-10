@@ -1,13 +1,14 @@
 package edu.unc.cs.hdwhite.readroom;
-//Hugh White 2015
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class MenuActivity extends AppCompatActivity {
-
+    public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,5 +35,21 @@ public class MenuActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void sendQuery(View v)
+    {
+        Intent intent = new Intent(this, QueryActivity.class);
+        startActivity(intent);
+    }
+    public void sendCollection(View v)
+    {
+        Intent intent = new Intent(this, HaveRead.class);
+        startActivity(intent);
+
+    }
+    public void sendWishlist(View v)
+    {
+        Intent intent = new Intent(this, ToRead.class);
+        startActivity(intent);
     }
 }

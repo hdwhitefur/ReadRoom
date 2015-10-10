@@ -34,7 +34,7 @@ public class QueryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.activity_query);
         bookAdapter = new ArrayAdapter<Book>(this, android.R.layout.simple_list_item_1, queriedBooks);
         resultList = (ListView) findViewById(R.id.resultList);
         resultList.setAdapter(bookAdapter);
