@@ -37,18 +37,11 @@
         android:layout_row="13"
         android:layout_column="8"
         android:layout_columnSpan="2"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="sendSearch"/>
+        android:onClick="sendSearch"
+        android:layout_below="@+id/HaveRead"
+        android:layout_alignRight="@+id/HaveRead"
+        android:layout_alignEnd="@+id/HaveRead"
+        android:layout_alignLeft="@+id/HaveRead"
+        android:layout_alignStart="@+id/HaveRead" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/LookFor"
-        android:layout_toStartOf="@+id/LookFor"
-        android:layout_alignTop="@+id/LookFor" />
 </RelativeLayout>
