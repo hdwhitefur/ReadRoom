@@ -4,13 +4,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.AdapterView;
+
+import java.util.ArrayList;
 
 public class CollectionActivity extends AppCompatActivity {
-
+    ArrayAdapter strAdapter;
+    String[] items= {"Moby Dick", "The Marvalous Adventures of Matthew", "Alien The Book, The Movie, The Book", "To Kill a Mockingbird"};;
+    ListView resultList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection);
+        ArrayAdapter strAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, items);
+        ListView resultList = (ListView) findViewById(R.id.resultList);
+        resultList.setAdapter(strAdapter);
     }
 
     @Override
@@ -34,4 +45,7 @@ public class CollectionActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
 }
