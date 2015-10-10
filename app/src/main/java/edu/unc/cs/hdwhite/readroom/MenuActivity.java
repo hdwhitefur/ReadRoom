@@ -37,9 +37,9 @@ public class MenuActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void sendSearch(View v)
+    public void sendQuery(View v)
     {
-        Intent intent = new Intent(this, Results.class);
+        Intent intent = new Intent(this, QueryActivity.class);
         startActivity(intent);
     }
     public void sendCollection(View v)
