@@ -43,13 +43,13 @@ public class MenuActivity extends AppCompatActivity {
     }
     public void sendCollection(View v)
     {
-        Intent intent = new Intent(this, HaveRead.class);
+        Intent intent = new Intent(this, Collection.class);
         startActivity(intent);
 
     }
     public void sendWishlist(View v)
     {
-        Intent intent = new Intent(this, ToRead.class);
+        Intent intent = new Intent(this, Wishlist.class);
         startActivity(intent);
     }
 }

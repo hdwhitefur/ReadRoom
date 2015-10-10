@@ -8,5 +8,7 @@
     <string name="title_activity_to_read">Wishlist</string>
     <string name="title_activity_have_read">Collection</string>
     <string name="string">Remove From Wishlist</string>
+    <string name="title_activity_collection">Collection</string>
+    <string name="title_activity_wishlist">Wishlist</string>
     
 </resources>
