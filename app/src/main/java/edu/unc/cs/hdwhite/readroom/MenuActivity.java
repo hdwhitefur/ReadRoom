@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,11 +27,17 @@ import java.util.ArrayList;
 public class MenuActivity extends AppCompatActivity {
     private final String DT = "Debug";
     private final String API_KEY = "AIzaSyBoAMsaRVBfRj_lrPyPD-CGq8k9sXdomjM";
+    ArrayList<Book> queriedBooks = new ArrayList<Book>();
+    ArrayAdapter<Book> bookAdapter;
+    ListView resultList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        bookAdapter = new ArrayAdapter<Book>(this, android.R.layout.simple_list_item_1, queriedBooks);
+        resultList = (ListView) findViewById(R.id.resultList);
+        resultList.setAdapter(bookAdapter);
     }
 
     @Override
@@ -63,12 +71,14 @@ public class MenuActivity extends AppCompatActivity {
                 + query + "&key=" + API_KEY;
         Log.d(DT, "Request " + request);
         new downloadBookInfo().execute(request);
+
     }
 
     private class downloadBookInfo extends AsyncTask<String, Void, ArrayList<Book>> {
 
         @Override
         protected ArrayList<Book> doInBackground(String... urls) {
+            Log.d(DT, "Starting background task");
             try {
                 return connectDownload(new URL(urls[0]));
             } catch (Exception e) {
@@ -78,9 +88,17 @@ public class MenuActivity extends AppCompatActivity {
             return null;
         }
 
+        @Override
+        protected void onPostExecute(ArrayList<Book> books) {
+            for (Book b : books) {
+                bookAdapter.add(b);
+            }
+        }
+
         private ArrayList<Book> connectDownload(URL url) throws IOException {
             InputStream in = null;
             try {
+                Log.d(DT, "Starting connection");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(10000);
                 conn.setConnectTimeout(15000);
@@ -99,15 +117,13 @@ public class MenuActivity extends AppCompatActivity {
             String output = "";
             Reader reader = new InputStreamReader(in, "UTF-8");
             char currChar = (char) reader.read();
-            int i = 0;
             while (currChar != 65535) {
                 output = output + currChar;
                 currChar = (char) reader.read();
-                i++;
             }
             Log.d(DT, "Output created");
             try {
-               return processJSONFromString(output);
+                return processJSONFromString(output);
             } catch (Exception e) {
                 Log.d(DT, "Caught exception");
                 e.printStackTrace();
@@ -116,13 +132,38 @@ public class MenuActivity extends AppCompatActivity {
         }
 
         private ArrayList<Book> processJSONFromString(String rawJSON) throws JSONException {
+            ArrayList<Book> books = new ArrayList<Book>();
             JSONObject bookResults = new JSONObject(rawJSON);
-            JSONArray books = bookResults.getJSONArray("items");
-            for(int i = 0; i < books.length(); i++) {
-                //Log.d(DT, books.getJSONObject(i).getString("title"));
-                Log.d(DT, books.getJSONObject(i).toString());
+            JSONArray JSONBooks = bookResults.getJSONArray("items");
+            JSONObject activeBook;
+            String title;
+            String author;
+            String dateString;
+            int date = 0;
+            JSONArray JSONAuthors;
+            for (int i = 0; i < JSONBooks.length(); i++) {
+                activeBook = JSONBooks.getJSONObject(i).getJSONObject("volumeInfo");
+
+                title = activeBook.getString("title");
+                if (activeBook.has("subtitle")) {
+                    title = title + ": " + activeBook.getString("subtitle");
+                }
+
+                String rawAuthors = activeBook.getJSONArray("authors").toString();
+                rawAuthors = rawAuthors.substring(2, rawAuthors.length() - 2);
+                author = rawAuthors.replaceAll("\",\"", ", ");
+
+                if (activeBook.has("publishedDate")) {
+                    dateString = activeBook.getString("publishedDate").substring(0,4);
+                    try {
+                        date = Integer.parseInt(dateString);
+                    } catch (NullPointerException e) {}
+                }
+
+                books.add(new Book(title, author, date));
+                Log.d(DT, "New book: " + books.get(i).toString());
             }
-            return null;
+            return books;
         }
     }
 }

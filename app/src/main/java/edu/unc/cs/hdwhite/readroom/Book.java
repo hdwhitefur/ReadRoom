@@ -6,14 +6,26 @@ package edu.unc.cs.hdwhite.readroom;
 public class Book {
     private String title;
     private String author;
+    private int date;
 
     public Book (String _title, String _author){
         title = _title;
         author = _author;
+        date = 0;
+    }
+
+    public Book (String _title, String _author, int _date) {
+        title = _title;
+        author = _author;
+        date = _date;
     }
 
     @Override
     public String toString(){
-        return title + " by " + author;
+        if (date == 0) {
+            return title + " by " + author;
+        } else {
+            return title + " (" + date + ") by " + author;
+        }
     }
 }
