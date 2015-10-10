@@ -19,9 +19,10 @@ public class CollectionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection);
-        ArrayAdapter strAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, items);
+        ArrayAdapter strAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, items);
         listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(strAdapter);
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
     }
 
     @Override

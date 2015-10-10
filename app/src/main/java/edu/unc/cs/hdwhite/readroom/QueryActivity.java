@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,9 +35,10 @@ public class QueryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_query);
-        bookAdapter = new ArrayAdapter<Book>(this, android.R.layout.simple_list_item_1, queriedBooks);
+        bookAdapter = new ArrayAdapter<Book>(this, android.R.layout.simple_list_item_multiple_choice, queriedBooks);
         resultList = (ListView) findViewById(R.id.resultList);
         resultList.setAdapter(bookAdapter);
+        resultList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
     }
 
     @Override
@@ -138,6 +140,21 @@ public class QueryActivity extends AppCompatActivity {
                 Log.d(DT, "New book: " + books.get(i).toString());
             }
             return books;
+
         }
+
+    }
+    public ArrayList<Book> getChecked(View v)
+    {
+        SparseBooleanArray checked = resultList.getCheckedItemPositions();
+        ArrayList<Book> selected = new ArrayList<Book>();
+        for(int i = 0; i < checked.size()+1; i++){
+            if(checked.get(i))
+                selected.add(queriedBooks.get(i));
+        }
+        for (Book b : selected) {
+            Log.d(DT, b.toString());
+        }
+        return selected;
     }
 }

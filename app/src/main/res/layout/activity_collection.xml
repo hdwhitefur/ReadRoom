@@ -23,5 +23,5 @@
         android:id="@+id/listView"
         android:layout_above="@+id/remove"
         android:layout_centerHorizontal="true"
-        tools:listitem="@android:layout/simple_list_item_1" />
+        tools:listitem="@android:layout/simple_list_item_multiple_choice" />
 </RelativeLayout>
