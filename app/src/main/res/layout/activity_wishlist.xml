@@ -34,16 +34,20 @@
         <Button
             android:layout_width="0px"
             android:layout_height="wrap_content"
-            android:text="New Button"
+            android:text="Remove"
             android:id="@+id/button"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:onClick="removeBooks" />
+            android:layout_weight="1"
+            android:onClick="removeBooks"/>
 
         <Button
             android:layout_width="0px"
             android:layout_height="wrap_content"
-            android:text="New Button"
+            android:text="Add to Collections"
             android:id="@+id/button2"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:onClick="sendCollectionW"/>
     </LinearLayout>
 
 </RelativeLayout>

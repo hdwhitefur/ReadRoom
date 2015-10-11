@@ -109,6 +109,8 @@ public class QueryActivity extends AppCompatActivity {
             Log.d(DT, "Starting background task");
             try {
                 return connectDownload(new URL(urls[0]));
+            } catch (JSONException jse) {
+                return null;
             } catch (Exception e) {
                 Log.d(DT, "Caught exception");
                 e.printStackTrace();
@@ -118,8 +120,10 @@ public class QueryActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(ArrayList<Book> books) {
-            for (Book b : books) {
-                bookAdapter.add(b);
+            if (books != null) {
+                for (Book b : books) {
+                    bookAdapter.add(b);
+                }
             }
         }
 
