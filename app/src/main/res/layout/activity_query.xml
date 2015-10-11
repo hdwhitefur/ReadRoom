@@ -33,7 +33,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/collectionButton"
                 android:layout_weight="10"
-                android:text="Collection" />
+                android:text="Collection"
+                android:onClick="sendCollection" />
         </LinearLayout>
 
         <RelativeLayout

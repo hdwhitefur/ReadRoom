@@ -1,6 +1,7 @@
 package edu.unc.cs.hdwhite.readroom;
 //Hugh White 2015
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -76,12 +77,17 @@ public class QueryActivity extends AppCompatActivity {
 
     public void sendWishlist(View v) {
         ArrayList<Book> checkedBooks = getChecked();
+        Intent intent = new Intent(this, WishlistActivity.class);
+        intent.putExtra("books", checkedBooks);
+        startActivity(intent);
 
     }
 
     public void sendCollection(View v) {
         ArrayList<Book> checkedBooks = getChecked();
-
+        Intent intent = new Intent(this, CollectionActivity.class);
+        intent.putExtra("books", checkedBooks);
+        startActivity(intent);
     }
 
     public ArrayList<Book> getChecked() {

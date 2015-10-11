@@ -1,9 +1,11 @@
 package edu.unc.cs.hdwhite.readroom;
 
+import java.io.Serializable;
+
 /**
  * Created by hdwhite on 10/10/2015.
  */
-public class Book {
+public class Book implements Serializable {
     private String title;
     private String author;
     private int date;
