@@ -2,6 +2,7 @@ package edu.unc.cs.hdwhite.readroom;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,9 +27,11 @@ public class CollectionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection);
-        bookAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, books);
+        bookAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, books);
         listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(bookAdapter);
+        bookAdapter.setNotifyOnChange(true);
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         filename = getFilesDir().toString() + filename;
     }
 
@@ -66,6 +69,21 @@ public class CollectionActivity extends AppCompatActivity {
         for (Book b : newBooks) {
             books.add(b);
         }
+    }
+    public void removeBooks(View v)
+    {
+        SparseBooleanArray checked = listView.getCheckedItemPositions();
+        //ArrayList<Book> selected = new ArrayList<Book>();
+        for(int i = 0; i < checked.size()+1; i++){
+            if(checked.get(i)) {
+                bookAdapter.remove(books.get(i));
+            }
+
+        }
+        /*for (Book b : selected) {
+            Log.d(DT, b.toString());
+        }
+        return selected;8*/
     }
 
     public void readStorage(View v) {
