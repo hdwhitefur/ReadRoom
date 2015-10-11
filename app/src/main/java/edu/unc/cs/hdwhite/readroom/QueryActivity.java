@@ -96,6 +96,7 @@ public class QueryActivity extends AppCompatActivity {
         for (int i = 0; i < resultList.getAdapter().getCount(); i++) {
             if (checked.get(i)) {
                 checkedBooks.add(queriedBooks.get(i));
+                resultList.setItemChecked(i, false);
             }
         }
         return checkedBooks;
