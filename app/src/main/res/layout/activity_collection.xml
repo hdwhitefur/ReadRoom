@@ -6,23 +6,60 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="edu.unc.cs.hdwhite.readroom.CollectionActivity">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="REMOVE"
-        android:id="@+id/remove"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/listView"
-        android:layout_alignEnd="@+id/listView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView"
-        android:layout_above="@+id/remove"
-        android:layout_centerHorizontal="true"
-        tools:listitem="@android:layout/simple_list_item_1"
-        android:choiceMode="multipleChoice" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true">
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:id="@+id/saveButton"
+                android:layout_weight="1"
+                android:onClick="writeStorage" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:text="Load"
+                android:id="@+id/loadButton"
+                android:layout_weight="1"
+                android:onClick="readStorage" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/listView"
+                tools:listitem="@android:layout/simple_list_item_1"
+                android:choiceMode="multipleChoice"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_above="@+id/remove"
+                android:layout_alignParentTop="true" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="REMOVE"
+                android:id="@+id/remove"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+    </LinearLayout>
+
 </RelativeLayout>

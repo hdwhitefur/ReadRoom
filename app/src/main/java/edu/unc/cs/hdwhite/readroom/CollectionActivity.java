@@ -4,12 +4,20 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+//woopsy
 public class CollectionActivity extends AppCompatActivity {
+    private String filename = "/collection";
     ArrayList<Book> books = new ArrayList<Book>();
     ArrayAdapter<Book> bookAdapter;
     ListView listView;
@@ -21,12 +29,15 @@ public class CollectionActivity extends AppCompatActivity {
         bookAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, books);
         listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(bookAdapter);
+        filename = getFilesDir().toString() + filename;
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        addBooks((ArrayList<Book>) getIntent().getSerializableExtra("books"));
+        if (getIntent().hasExtra("books")) {
+            addBooks((ArrayList<Book>) getIntent().getSerializableExtra("books"));
+        }
     }
 
     @Override
@@ -51,11 +62,44 @@ public class CollectionActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void addBooks(ArrayList<Book> newBooks) {
+    private void addBooks(ArrayList<Book> newBooks) {
         for (Book b : newBooks) {
             books.add(b);
         }
     }
 
+    public void readStorage(View v) {
+        ArrayList<Book> newBooks = new ArrayList<Book>();
+        try {
+            FileInputStream in = new FileInputStream(filename);
+            ObjectInputStream objIn = new ObjectInputStream(in);
+            newBooks = (ArrayList<Book>) objIn.readObject();
+            objIn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        bookAdapter.clear();
+        for (Book b : newBooks) {
+            bookAdapter.add(b);
+        }
+    }
 
+    public void writeStorage(View v) {
+        File file = new File(filename);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            FileOutputStream out = new FileOutputStream(filename);
+            ObjectOutputStream objOut = new ObjectOutputStream(out);
+            objOut.writeObject(books);
+            objOut.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
