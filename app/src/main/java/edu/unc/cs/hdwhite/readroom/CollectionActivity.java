@@ -2,6 +2,7 @@ package edu.unc.cs.hdwhite.readroom;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,11 +38,20 @@ public class CollectionActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
+        readStorage();
         if (getIntent().hasExtra("books")) {
+            Log.d(DT, "Adding books");
             addBooks((ArrayList<Book>) getIntent().getSerializableExtra("books"));
+            getIntent().removeExtra("books");
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        writeStorage();
     }
 
     @Override
@@ -116,6 +126,10 @@ public class CollectionActivity extends AppCompatActivity {
     }
 
     public void writeStorage(View v) {
+        writeStorage();
+    }
+
+    public void writeStorage() {
         File file = new File(filename);
         if (!file.exists()) {
             try {

@@ -1,7 +1,8 @@
 package edu.unc.cs.hdwhite.readroom;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.Menu;
@@ -18,6 +19,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class WishlistActivity extends AppCompatActivity {
+    private final String DT = "Debug";
     ArrayList<Book> books = new ArrayList<Book>();
     ArrayAdapter<Book> bookAdapter;
     ListView listView;
@@ -32,13 +34,26 @@ public class WishlistActivity extends AppCompatActivity {
         bookAdapter.setNotifyOnChange(true);
         listView.setAdapter(bookAdapter);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        filename = getFilesDir().toString() + filename;
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        addBooks((ArrayList<Book>) getIntent().getSerializableExtra("books"));
+    protected void onResume() {
+        super.onResume();
+        readStorage();
+        if (getIntent().hasExtra("books")) {
+            Log.d(DT, "Adding books");
+            addBooks((ArrayList<Book>) getIntent().getSerializableExtra("books"));
+            getIntent().removeExtra("books");
+        }
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        writeStorage();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -59,6 +74,13 @@ public class WishlistActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void sendCollection(View v) {
+        ArrayList<Book> checkedBooks = getChecked();
+        Intent intent = new Intent(this, CollectionActivity.class);
+        intent.putExtra("books", checkedBooks);
+        startActivity(intent);
     }
 
     public void addBooks(ArrayList<Book> newBooks) {
@@ -110,6 +132,10 @@ public class WishlistActivity extends AppCompatActivity {
     }
 
     public void writeStorage(View v) {
+        writeStorage();
+    }
+
+    public void writeStorage() {
         File file = new File(filename);
         if (!file.exists()) {
             try {
