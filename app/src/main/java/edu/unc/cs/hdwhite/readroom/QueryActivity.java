@@ -72,7 +72,28 @@ public class QueryActivity extends AppCompatActivity {
                 + query + "&key=" + API_KEY;
         Log.d(DT, "Request " + request);
         new downloadBookInfo().execute(request);
+    }
 
+    public void sendWishlist(View v) {
+        ArrayList<Book> checkedBooks = getChecked();
+        for (Book b : checkedBooks) {
+            Log.d(DT, b.toString());
+        }
+    }
+
+    public void sendCollection(View v) {
+
+    }
+
+    public ArrayList<Book> getChecked() {
+        ArrayList<Book> checkedBooks = new ArrayList<Book>();
+        SparseBooleanArray checked = resultList.getCheckedItemPositions();
+        for (int i = 0; i < resultList.getAdapter().getCount(); i++) {
+            if (checked.get(i)) {
+                checkedBooks.add(queriedBooks.get(i));
+            }
+        }
+        return checkedBooks;
     }
 
     private class downloadBookInfo extends AsyncTask<String, Void, ArrayList<Book>> {
