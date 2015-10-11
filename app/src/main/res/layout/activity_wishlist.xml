@@ -37,6 +37,8 @@
             android:text="Remove"
             android:id="@+id/button"
             android:layout_weight="1"
+            android:onClick="removeBooks" />
+            android:layout_weight="1"
             android:onClick="removeBooks"/>
 
         <Button
