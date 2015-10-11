@@ -1,9 +1,5 @@
 package edu.unc.cs.hdwhite.readroom;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.support.v4.media.session.ParcelableVolumeInfo;
-
 import java.io.Serializable;
 
 /**
@@ -33,16 +29,5 @@ public class Book implements Serializable {
         } else {
             return title + " (" + date + ") by " + author;
         }
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags)
-    {
-
     }
 }

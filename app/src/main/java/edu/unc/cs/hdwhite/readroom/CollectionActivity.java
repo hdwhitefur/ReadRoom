@@ -24,6 +24,12 @@ public class CollectionActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        addBooks((ArrayList<Book>) getIntent().getSerializableExtra("books"));
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_collection, menu);
