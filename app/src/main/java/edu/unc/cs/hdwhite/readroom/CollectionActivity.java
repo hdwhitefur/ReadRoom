@@ -100,6 +100,7 @@ public class CollectionActivity extends AppCompatActivity {
         for (int i = 0; i < listView.getAdapter().getCount(); i++) {
             if (checked.get(i)) {
                 checkedBooks.add(books.get(i));
+                listView.setItemChecked(i, false);
             }
         }
         return checkedBooks;
