@@ -19,6 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="REMOVE FORM WISHLIST"
+        android:onClick="removeBooks"
         android:id="@+id/removeFromWishlist"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"

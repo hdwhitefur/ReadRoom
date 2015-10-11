@@ -166,6 +166,21 @@ public class QueryActivity extends AppCompatActivity {
                 Log.d(DT, "New book: " + books.get(i).toString());
             }
             return books;
+
         }
+
+    }
+    public ArrayList<Book> getChecked(View v)
+    {
+        SparseBooleanArray checked = resultList.getCheckedItemPositions();
+        ArrayList<Book> selected = new ArrayList<Book>();
+        for(int i = 0; i < checked.size()+1; i++){
+            if(checked.get(i))
+                selected.add(queriedBooks.get(i));
+        }
+        for (Book b : selected) {
+            Log.d(DT, b.toString());
+        }
+        return selected;
     }
 }

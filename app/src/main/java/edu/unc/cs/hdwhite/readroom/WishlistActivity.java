@@ -2,8 +2,11 @@ package edu.unc.cs.hdwhite.readroom;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -18,9 +21,11 @@ public class WishlistActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wishlist);
-        bookAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, books);
+        bookAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, books);
         listView = (ListView) findViewById(R.id.listView2);
+        bookAdapter.setNotifyOnChange(true);
         listView.setAdapter(bookAdapter);
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
     }
 
     @Override
@@ -54,5 +59,21 @@ public class WishlistActivity extends AppCompatActivity {
         for (Book b : newBooks) {
             books.add(b);
         }
+    }
+
+    public void removeBooks(View v)
+    {
+        SparseBooleanArray checked = listView.getCheckedItemPositions();
+        //ArrayList<Book> selected = new ArrayList<Book>();
+        for(int i = 0; i < checked.size()+1; i++){
+            if(checked.get(i)) {
+                books.remove(i);
+            }
+
+        }
+        /*for (Book b : selected) {
+            Log.d(DT, b.toString());
+        }
+        return selected;8*/
     }
 }
