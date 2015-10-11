@@ -38,6 +38,8 @@
             android:id="@+id/button"
             android:layout_weight="1"
             android:onClick="removeBooks" />
+            android:layout_weight="1"
+            android:onClick="removeBooks"/>
 
         <Button
             android:layout_width="0px"
@@ -45,7 +47,7 @@
             android:text="Add to Collections"
             android:id="@+id/button2"
             android:layout_weight="1"
-            android:onClick="sendCollection" />
+            android:onClick="sendCollectionW"/>
     </LinearLayout>
 
 </RelativeLayout>
