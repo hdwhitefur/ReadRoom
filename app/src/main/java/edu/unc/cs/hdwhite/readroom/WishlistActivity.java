@@ -4,13 +4,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class WishlistActivity extends AppCompatActivity {
+    ArrayList<Book> books = new ArrayList<Book>();
+    ArrayAdapter<Book> bookAdapter;
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wishlist);
+        bookAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, books);
+        listView = (ListView) findViewById(R.id.listView2);
+        listView.setAdapter(bookAdapter);
     }
 
     @Override
@@ -33,5 +43,11 @@ public class WishlistActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void addBooks(ArrayList<Book> newBooks) {
+        for (Book b : newBooks) {
+            books.add(b);
+        }
     }
 }
