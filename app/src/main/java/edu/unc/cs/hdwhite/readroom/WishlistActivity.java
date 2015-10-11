@@ -10,12 +10,18 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class WishlistActivity extends AppCompatActivity {
     ArrayList<Book> books = new ArrayList<Book>();
     ArrayAdapter<Book> bookAdapter;
     ListView listView;
+    private String filename = "/wishlist";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,17 +69,62 @@ public class WishlistActivity extends AppCompatActivity {
 
     public void removeBooks(View v)
     {
-        SparseBooleanArray checked = listView.getCheckedItemPositions();
-        //ArrayList<Book> selected = new ArrayList<Book>();
-        for(int i = 0; i < checked.size()+1; i++){
-            if(checked.get(i)) {
-                books.remove(i);
+        ArrayList<Book> toRemove = getChecked();
+        for (int i = books.size() - 1; i >= 0; i--) {
+            Book temp = books.get(i);
+            if (toRemove.contains(temp)) {
+                bookAdapter.remove(temp);
+                toRemove.remove(temp);
             }
+        }
+    }
+    public ArrayList<Book> getChecked() {
+        ArrayList<Book> checkedBooks = new ArrayList<Book>();
+        SparseBooleanArray checked = listView.getCheckedItemPositions();
+        for (int i = 0; i < listView.getAdapter().getCount(); i++) {
+            if (checked.get(i)) {
+                checkedBooks.add(books.get(i));
+            }
+        }
+        return checkedBooks;
+    }
 
+    public void readStorage(View v) {
+        readStorage();
+    }
+
+    public void readStorage() {
+        ArrayList<Book> newBooks = new ArrayList<Book>();
+        try {
+            FileInputStream in = new FileInputStream(filename);
+            ObjectInputStream objIn = new ObjectInputStream(in);
+            newBooks = (ArrayList<Book>) objIn.readObject();
+            objIn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        /*for (Book b : selected) {
-            Log.d(DT, b.toString());
+        bookAdapter.clear();
+        for (Book b : newBooks) {
+            bookAdapter.add(b);
         }
-        return selected;8*/
+    }
+
+    public void writeStorage(View v) {
+        File file = new File(filename);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            FileOutputStream out = new FileOutputStream(filename);
+            ObjectOutputStream objOut = new ObjectOutputStream(out);
+            objOut.writeObject(books);
+            objOut.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
