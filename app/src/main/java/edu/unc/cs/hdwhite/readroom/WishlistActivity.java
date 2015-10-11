@@ -76,11 +76,18 @@ public class WishlistActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void sendCollection(View v) {
+    public void sendCollectionW(View v) {
         ArrayList<Book> checkedBooks = getChecked();
         Intent intent = new Intent(this, CollectionActivity.class);
         intent.putExtra("books", checkedBooks);
         startActivity(intent);
+        for (int i = books.size() - 1; i >= 0; i--) {
+            Book temp = books.get(i);
+            if (checkedBooks.contains(temp)) {
+                bookAdapter.remove(temp);
+                checkedBooks.remove(temp);
+            }
+        }
     }
 
     public void addBooks(ArrayList<Book> newBooks) {
