@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 //woopsy
 public class CollectionActivity extends AppCompatActivity {
+    private final String DT = "Debug";
     private String filename = "/collection";
     ArrayList<Book> books = new ArrayList<Book>();
     ArrayAdapter<Book> bookAdapter;
@@ -66,27 +67,39 @@ public class CollectionActivity extends AppCompatActivity {
     }
 
     private void addBooks(ArrayList<Book> newBooks) {
+        readStorage();
         for (Book b : newBooks) {
-            books.add(b);
+            bookAdapter.add(b);
         }
     }
     public void removeBooks(View v)
     {
-        SparseBooleanArray checked = listView.getCheckedItemPositions();
-        //ArrayList<Book> selected = new ArrayList<Book>();
-        for(int i = 0; i < checked.size()+1; i++){
-            if(checked.get(i)) {
-                bookAdapter.remove(books.get(i));
+        ArrayList<Book> toRemove = getChecked();
+        for (int i = books.size() - 1; i >= 0; i--) {
+            Book temp = books.get(i);
+            if (toRemove.contains(temp)) {
+                bookAdapter.remove(temp);
+                toRemove.remove(temp);
             }
+        }
+    }
 
+    public ArrayList<Book> getChecked() {
+        ArrayList<Book> checkedBooks = new ArrayList<Book>();
+        SparseBooleanArray checked = listView.getCheckedItemPositions();
+        for (int i = 0; i < listView.getAdapter().getCount(); i++) {
+            if (checked.get(i)) {
+                checkedBooks.add(books.get(i));
+            }
         }
-        /*for (Book b : selected) {
-            Log.d(DT, b.toString());
-        }
-        return selected;8*/
+        return checkedBooks;
     }
 
     public void readStorage(View v) {
+        readStorage();
+    }
+
+    public void readStorage() {
         ArrayList<Book> newBooks = new ArrayList<Book>();
         try {
             FileInputStream in = new FileInputStream(filename);
