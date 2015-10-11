@@ -27,7 +27,6 @@ import java.util.ArrayList;
 
 public class QueryActivity extends AppCompatActivity {
     private final String DT = "Debug";
-    private final String API_KEY = "AIzaSyBoAMsaRVBfRj_lrPyPD-CGq8k9sXdomjM";
     ArrayList<Book> queriedBooks = new ArrayList<Book>();
     ArrayAdapter<Book> bookAdapter;
     ListView resultList;
@@ -69,8 +68,7 @@ public class QueryActivity extends AppCompatActivity {
         EditText queryText = ((EditText) findViewById(R.id.queryText));
         String query = queryText.getText().toString().replaceAll(" ", "+");
         Log.d(DT, "Searching for " + query);
-        String request = "https://www.googleapis.com/books/v1/volumes?q="
-                + query + "&key=" + API_KEY;
+        String request = "https://www.googleapis.com/books/v1/volumes?q=" + query;
         Log.d(DT, "Request " + request);
         new downloadBookInfo().execute(request);
     }
@@ -80,7 +78,6 @@ public class QueryActivity extends AppCompatActivity {
         Intent intent = new Intent(this, WishlistActivity.class);
         intent.putExtra("books", checkedBooks);
         startActivity(intent);
-
     }
 
     public void sendCollection(View v) {
@@ -121,7 +118,9 @@ public class QueryActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(ArrayList<Book> books) {
             if (books != null) {
+                bookAdapter.clear();
                 for (Book b : books) {
+                    Log.d(DT, "Added " + b.toString());
                     bookAdapter.add(b);
                 }
             }
@@ -168,7 +167,6 @@ public class QueryActivity extends AppCompatActivity {
                 }
 
                 books.add(new Book(title, author, date));
-                Log.d(DT, "New book: " + books.get(i).toString());
             }
             return books;
 

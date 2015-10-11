@@ -24,10 +24,15 @@ public class Book implements Serializable {
 
     @Override
     public String toString(){
+        String output;
         if (date == 0) {
-            return title + " by " + author;
+            output =  title + " by " + author;
         } else {
-            return title + " (" + date + ") by " + author;
+            output = title + " (" + date + ") by " + author;
         }
+        if (output.length() > 70) {
+            return output.substring(0,70) + "...";
+        }
+        return output;
     }
 }
